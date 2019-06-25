@@ -1,8 +1,8 @@
 #include <SPI.h>
 #include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-//#include "OpeningDisplay.cpp"
+// #include <Adafruit_GFX.h>
+// #include <Adafruit_SSD1306.h>
+#include "Animator.h"
 
 
 // SPI definitions for the display module
@@ -18,7 +18,8 @@ void setup() {
   // initialize the display
   display = new Adafruit_SSD1306(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
   display->begin(SSD1306_SWITCHCAPVCC);
-//  openingAnimation(display);
+  Animator* global_animator = new Animator(display);
+  
 
 
 }
