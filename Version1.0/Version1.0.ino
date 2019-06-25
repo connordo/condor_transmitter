@@ -12,14 +12,14 @@
 #define OLED_CS    12
 #define OLED_RESET 13
 
-Adafruit_SSD1306 *display;
+Adafruit_SSD1306 * display;
 
 void setup() {
   // initialize the display
   display = new Adafruit_SSD1306(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
   display->begin(SSD1306_SWITCHCAPVCC);
-  Animator* global_animator = new Animator(display);
-  
+  Animator * global_animator = new Animator(display);
+
 
 
 }

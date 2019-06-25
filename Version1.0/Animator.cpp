@@ -3,6 +3,11 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+
+#define LJOY_CENTER_X 32
+#define RJOY_CENTER_X 96
+#define JOY_CENTER_Y  40
+#define JOY_RADIUS    16
 //void openingAnimation(Adafruit_SSD1306 * display);
 
 const unsigned char PROGMEM condor1[] =
@@ -91,6 +96,10 @@ const unsigned char PROGMEM condor17[] =
 };
 Animator::Animator(Adafruit_SSD1306 * display) {
   screen = display;
+  lstick_x = LJOY_CENTER_X;
+  lstick_y = JOY_CENTER_Y;
+  rstick_x = LJOY_CENTER_X;
+  rstick_y = JOY_CENTER_Y;
 }
 
 void Animator::openingAnimation() {
@@ -205,7 +214,41 @@ void Animator::openingAnimation() {
   screen->display();
   screen->clearDisplay();
   screen->display();
+}
 
+void Animator::homeScreen_init(){
+  screen->drawLine(0,15,127,15,WHITE);
 
+  DrawBattery(0);
 
+  //some text
+  screen->setCursor(1,16);
+  screen->setTextSize(1);
+  screen->setTextColor(WHITE);
+  screen->println("Condor Transmitter -- 915 MHz");
+
+  //draw circles for digital stick representation
+  screen->drawCircle(LJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS, WHITE);
+  screen->drawCircle(RJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS, WHITE);
+
+  //stick positions
+  screen->drawPixel(lstick_x, lstick_y, WHITE);
+  screen->drawPixel(rstick_x, rstick_y, WHITE);
+}
+
+void Animator::DrawBattery(int charge){
+  //erase the battery
+  screen->fillRect(114, 2, 13, 7, BLACK);
+
+  //draw the battery
+  screen->drawRect(114, 2, 12, 7, WHITE);
+  screen->drawLine(126, 4, 126, 6, WHITE);
+
+  //Fill according to charge (currently 1-3; subject to change)
+  if(charge >= 1)
+  screen->fillRect(116, 4, 2, 3, WHITE);
+  if(charge >= 2)
+  screen->fillRect(119, 4, 2, 3, WHITE);
+  if(charge >=3)
+  screen->fillRect(122, 4, 2, 3, WHITE);
 }

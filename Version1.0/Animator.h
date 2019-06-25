@@ -25,8 +25,15 @@ class Animator {
     static const unsigned char PROGMEM condor17[];
 
     Adafruit_SSD1306 * screen;
+
+    int lstick_x;
+    int lstick_y;
+    int rstick_x;
+    int rstick_y;
   public:
     Animator(Adafruit_SSD1306 * display);
     void openingAnimation();
+    void homeScreen_init();
+    void DrawBattery(int charge);
 
 };
