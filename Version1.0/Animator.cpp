@@ -97,9 +97,9 @@ const unsigned char PROGMEM Animator::condor17[] =
 
 //image width:  96
 //image height: 8
-const unsigned char PROGMEM Animator::lowermarquee[]=
+const unsigned char PROGMEM Animator::lowermarquee[] =
 {
-0b11101110, 0b11100100, 0b11101110, 0b11000000, 0b11001010, 0b00001110, 0b11101001, 0b01001011, 0b10111000, 0b00111010, 0b00111011, 0b10100100, 0b10001010, 0b10001010, 0b01001000, 0b10100000, 0b10101010, 0b00001000, 0b10101101, 0b01101010, 0b10101000, 0b00101010, 0b00100010, 0b00110100, 0b10001110, 0b11001110, 0b01001100, 0b10100000, 0b11000100, 0b00001000, 0b10101011, 0b01011010, 0b10111000, 0b00101010, 0b00111011, 0b00101100, 0b10001100, 0b10001010, 0b01001000, 0b10100000, 0b10100100, 0b00001000, 0b10101001, 0b01001010, 0b10110000, 0b00101010, 0b00001010, 0b00100100, 0b11101010, 0b11101010, 0b01001110, 0b11000000, 0b11000100, 0b00001110, 0b11101001, 0b01001011, 0b10101000, 0b00111011, 0b10111011, 0b10100100, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
+  0b11101110, 0b11100100, 0b11101110, 0b11000000, 0b11001010, 0b00001110, 0b11101001, 0b01001011, 0b10111000, 0b00111010, 0b00111011, 0b10100100, 0b10001010, 0b10001010, 0b01001000, 0b10100000, 0b10101010, 0b00001000, 0b10101101, 0b01101010, 0b10101000, 0b00101010, 0b00100010, 0b00110100, 0b10001110, 0b11001110, 0b01001100, 0b10100000, 0b11000100, 0b00001000, 0b10101011, 0b01011010, 0b10111000, 0b00101010, 0b00111011, 0b00101100, 0b10001100, 0b10001010, 0b01001000, 0b10100000, 0b10100100, 0b00001000, 0b10101001, 0b01001010, 0b10110000, 0b00101010, 0b00001010, 0b00100100, 0b11101010, 0b11101010, 0b01001110, 0b11000000, 0b11000100, 0b00001110, 0b11101001, 0b01001011, 0b10101000, 0b00111011, 0b10111011, 0b10100100, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
 };
 Animator::Animator(Adafruit_SSD1306 * display) {
   screen = display;
@@ -114,127 +114,40 @@ void Animator::openingAnimation() {
   int y_pos = 24;
   int width = 64;
   int height = 16;
+
+  const unsigned char PROGMEM * array_holder[17] = {
+    condor1, condor2, condor3, condor4, condor5, condor6, condor7, condor8,
+    condor9, condor10, condor11, condor12, condor13, condor14, condor15,
+    condor16, condor17
+  };
   screen->clearDisplay();
 
   screen->drawBitmap(16, 59, lowermarquee, 96, 8, WHITE);
 
-  screen->drawBitmap(x_pos, y_pos, condor1, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor2, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor3, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor4, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor5, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor6, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor7, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor8, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor9, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor10, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor11, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor12, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor13, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor14, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor15, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor16, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor17, width, height, WHITE);
-  screen->display();
+  for (int i = 0; i < 17; i++) {
+    screen->fillRect(x_pos, y_pos, width, height, BLACK);
+    screen->drawBitmap(x_pos, y_pos, array_holder[i], width, height, WHITE);
+    screen->display();
+  }
 
   delay(1000);
 
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor17, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor16, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor15, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor14, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor13, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor12, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor11, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor10, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor9, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor8, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor7, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor6, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor5, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor4, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor3, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor2, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->drawBitmap(x_pos, y_pos, condor1, width, height, WHITE);
-  screen->display();
-  screen->fillRect(x_pos, y_pos, width, height, BLACK);
-  screen->display();
+  for (int i = 16; i >= 0; i--) {
+    screen->fillRect(x_pos, y_pos, width, height, BLACK);
+    screen->drawBitmap(x_pos, y_pos, array_holder[i], width, height, WHITE);
+    screen->display();
+  }
   delay(1000);
 }
 
-void Animator::homeScreen_init(){
+void Animator::homeScreen_init() {
   screen->clearDisplay();
-  screen->drawLine(0,13,127,13,WHITE);
+  screen->drawLine(0, 13, 127, 13, WHITE);
 
   DrawBattery(3);
 
   //some text
-  screen->setCursor(1,2);
+  screen->setCursor(1, 2);
   screen->setTextSize(1);
   screen->setTextColor(WHITE);
   screen->println("915 MHz TX/RX");
@@ -250,7 +163,7 @@ void Animator::homeScreen_init(){
   screen->display();
 }
 
-void Animator::DrawBattery(int charge){
+void Animator::DrawBattery(int charge) {
   //erase the battery
   screen->fillRect(114, 2, 13, 7, BLACK);
 
@@ -259,10 +172,10 @@ void Animator::DrawBattery(int charge){
   screen->drawLine(126, 4, 126, 6, WHITE);
 
   //Fill according to charge (currently 1-3; subject to change)
-  if(charge >= 1)
-  screen->fillRect(116, 4, 2, 3, WHITE);
-  if(charge >= 2)
-  screen->fillRect(119, 4, 2, 3, WHITE);
-  if(charge >=3)
-  screen->fillRect(122, 4, 2, 3, WHITE);
+  if (charge >= 1)
+    screen->fillRect(116, 4, 2, 3, WHITE);
+  if (charge >= 2)
+    screen->fillRect(119, 4, 2, 3, WHITE);
+  if (charge >= 3)
+    screen->fillRect(122, 4, 2, 3, WHITE);
 }
