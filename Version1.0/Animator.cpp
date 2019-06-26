@@ -206,4 +206,5 @@ void Animator::DrawDigitalSticks(int lx, int ly, int rx, int ry){
   //draw the new positions
   screen->drawPixel(lstick_x, lstick_y, WHITE);
   screen->drawPixel(rstick_x, rstick_y, WHITE);
+  screen->display();
 }
