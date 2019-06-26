@@ -23,6 +23,7 @@ class Animator {
     static const unsigned char PROGMEM condor15[];
     static const unsigned char PROGMEM condor16[];
     static const unsigned char PROGMEM condor17[];
+    static const unsigned char PROGMEM lowermarquee[];
 
     Adafruit_SSD1306 * screen;
 
