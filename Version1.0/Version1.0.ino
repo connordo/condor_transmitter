@@ -18,9 +18,11 @@ void setup() {
   // initialize the display
   display = new Adafruit_SSD1306(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
   display->begin(SSD1306_SWITCHCAPVCC);
+  display->clearDisplay();
+  display->display();
   Animator * global_animator = new Animator(display);
-
-
+  global_animator->openingAnimation();
+  global_animator->homeScreen_init();
 
 }
 
