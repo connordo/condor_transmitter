@@ -3,6 +3,7 @@
 // #include <Adafruit_GFX.h>
 // #include <Adafruit_SSD1306.h>
 #include "Animator.h"
+#include "Joystick.h"
 
 
 // SPI definitions for the display module
@@ -23,6 +24,10 @@ void setup() {
   Animator * global_animator = new Animator(display);
   global_animator->openingAnimation();
   global_animator->homeScreen_init();
+
+  // initialize the sticks
+  Joystick * leftStick = new Joystick(1, 2);
+  Joystick * rightStick = new Joystick(3, 4);
 
 }
 

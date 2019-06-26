@@ -2,6 +2,7 @@
 
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include "Arduino.h"
 
 class Animator {
 
@@ -36,5 +37,6 @@ class Animator {
     void openingAnimation();
     void homeScreen_init();
     void DrawBattery(int charge);
+    void DrawDigitalSticks(int lx, int ly, int rx, int ry);
 
 };

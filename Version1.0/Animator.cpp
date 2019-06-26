@@ -1,13 +1,11 @@
 #include "Animator.h"
-#include "Arduino.h"
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 
+#define LJOY_CENTER_X      32
+#define RJOY_CENTER_X      96
+#define JOY_CENTER_Y       40
+#define JOY_RADIUS         16
+#define LITTLE_LINE_LENGTH 3
 
-#define LJOY_CENTER_X 32
-#define RJOY_CENTER_X 96
-#define JOY_CENTER_Y  40
-#define JOY_RADIUS    16
 //void openingAnimation(Adafruit_SSD1306 * display);
 
 const unsigned char PROGMEM Animator::condor1[] =
@@ -155,6 +153,17 @@ void Animator::homeScreen_init() {
   //draw circles for digital stick representation
   screen->drawCircle(LJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS, WHITE);
   screen->drawCircle(RJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS, WHITE);
+  screen->drawCircle(LJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
+  screen->drawCircle(RJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
+  screen->drawLine(LJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS, LJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS-LITTLE_LINE_LENGTH, WHITE);
+  screen->drawLine(RJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS, RJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS-LITTLE_LINE_LENGTH, WHITE);
+  screen->drawLine(LJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS, LJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
+  screen->drawLine(RJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS, RJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
+  screen->drawLine(LJOY_CENTER_X-JOY_RADIUS, JOY_CENTER_Y, LJOY_CENTER_X-JOY_RADIUS-LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
+  screen->drawLine(RJOY_CENTER_X-JOY_RADIUS, JOY_CENTER_Y, RJOY_CENTER_X-JOY_RADIUS-LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
+  screen->drawLine(LJOY_CENTER_X+JOY_RADIUS, JOY_CENTER_Y, LJOY_CENTER_X+JOY_RADIUS+LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
+  screen->drawLine(RJOY_CENTER_X+JOY_RADIUS, JOY_CENTER_Y, RJOY_CENTER_X+JOY_RADIUS+LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
+
 
   //stick positions
   screen->drawPixel(lstick_x, lstick_y, WHITE);
@@ -178,4 +187,23 @@ void Animator::DrawBattery(int charge) {
     screen->fillRect(119, 4, 2, 3, WHITE);
   if (charge >= 3)
     screen->fillRect(122, 4, 2, 3, WHITE);
+}
+
+void Animator::DrawDigitalSticks(int lx, int ly, int rx, int ry){
+  //erase the current dots
+  screen->drawPixel(lstick_x, lstick_y, BLACK);
+  screen->drawPixel(rstick_x, rstick_y, BLACK);
+
+  //map the stick positions to display positions
+  //TODO fromLOW and fromHIGH are placeholders for now...
+  int fromLOW = 0;
+  int fromHIGH = 100;
+  lstick_x = map(lx, fromLOW, fromHIGH, LJOY_CENTER_X-JOY_RADIUS+1, LJOY_CENTER_X+JOY_RADIUS-1);
+  lstick_y = map(rx, fromLOW, fromHIGH, RJOY_CENTER_X-JOY_RADIUS+1, RJOY_CENTER_X+JOY_RADIUS-1);
+  rstick_x = map(ly, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-1, JOY_CENTER_Y-JOY_RADIUS+1);
+  rstick_y = map(ry, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-1, JOY_CENTER_Y-JOY_RADIUS+1);
+
+  //draw the new positions
+  screen->drawPixel(lstick_x, lstick_y, WHITE);
+  screen->drawPixel(rstick_x, rstick_y, WHITE);
 }
