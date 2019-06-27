@@ -33,8 +33,8 @@ void setup() {
   rightStick = new Joystick(2, 3);
 
   // calibrate the joysticks
-  leftStick->calibrate(display, "Left Stick");
-  rightStick->calibrate(display, "Right Stick");
+  leftStick->calibrate(display, "Rotate Left Stick");
+  rightStick->calibrate(display, "Rotate Right Stick");
   global_animator->homeScreen_init();
 
 

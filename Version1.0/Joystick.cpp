@@ -9,8 +9,8 @@ Joystick::Joystick(int vert_pin, int horiz_pin){
 
 void Joystick::readValues(){
   vertical_value = map(analogRead(analogpin_vert), minVert, maxVert,-10,10);
-  horizontal_value = map(analogRead(analogpin_horiz), minVert, maxVert,-10,10);
-  
+  horizontal_value = map(analogRead(analogpin_horiz), minHoriz, maxHoriz,-10,10);
+
 }
 
 void Joystick::calibrate(Adafruit_SSD1306 * display, String dispMessage){
@@ -29,6 +29,8 @@ void Joystick::calibrate(Adafruit_SSD1306 * display, String dispMessage){
 
     if(tempVert > maxVert) maxVert = tempVert;
     if(tempVert < minVert) minVert = tempVert;
+    if(tempHoriz > maxHoriz) maxHoriz = tempHoriz;
+    if(tempHoriz < minHoriz) minHoriz = tempHoriz;
 
     if(i%8==0){
       display->drawPixel(px++, 60, WHITE);

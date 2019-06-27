@@ -5,6 +5,7 @@
 #define JOY_CENTER_Y       40
 #define JOY_RADIUS         16
 #define LITTLE_LINE_LENGTH 3
+#define STICK_BUFFER       3
 
 //void openingAnimation(Adafruit_SSD1306 * display);
 
@@ -186,11 +187,11 @@ void Animator::DrawDigitalSticks(int ly, int lx, int ry, int rx){
   int fromLOW = -10;
   int fromHIGH = 10;
 
-  lstick_x = map(lx, fromLOW, fromHIGH, LJOY_CENTER_X-JOY_RADIUS+1, LJOY_CENTER_X+JOY_RADIUS-1);
-  lstick_y = map(ly, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-1, JOY_CENTER_Y-JOY_RADIUS+1);
-  rstick_x = map(rx, fromLOW, fromHIGH, RJOY_CENTER_X-JOY_RADIUS+1, RJOY_CENTER_X+JOY_RADIUS-1);
-  rstick_y = map(ry, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-1, JOY_CENTER_Y-JOY_RADIUS+1);
-  
+  lstick_x = map(lx, fromLOW, fromHIGH, LJOY_CENTER_X-JOY_RADIUS+STICK_BUFFER, LJOY_CENTER_X+JOY_RADIUS-STICK_BUFFER);
+  lstick_y = map(ly, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-STICK_BUFFER, JOY_CENTER_Y-JOY_RADIUS+STICK_BUFFER);
+  rstick_x = map(rx, fromLOW, fromHIGH, RJOY_CENTER_X-JOY_RADIUS+STICK_BUFFER, RJOY_CENTER_X+JOY_RADIUS-STICK_BUFFER);
+  rstick_y = map(ry, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-STICK_BUFFER, JOY_CENTER_Y-JOY_RADIUS+STICK_BUFFER);
+
   //draw the new positions
   screen->drawPixel(lstick_x, lstick_y, WHITE);
   screen->drawPixel(rstick_x, rstick_y, WHITE);
