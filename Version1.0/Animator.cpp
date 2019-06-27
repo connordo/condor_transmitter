@@ -190,17 +190,7 @@ void Animator::DrawDigitalSticks(int ly, int lx, int ry, int rx){
   lstick_y = map(ly, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-1, JOY_CENTER_Y-JOY_RADIUS+1);
   rstick_x = map(rx, fromLOW, fromHIGH, RJOY_CENTER_X-JOY_RADIUS+1, RJOY_CENTER_X+JOY_RADIUS-1);
   rstick_y = map(ry, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-1, JOY_CENTER_Y-JOY_RADIUS+1);
-  // Serial.begin(9600);
-  // delay(100);
-  // Serial.println(ly);
-  // delay(100);
-  // Serial.println(lx);
-  // delay(100);
-  // Serial.println(lstick_y);
-  // delay(100);
-  // Serial.println(lstick_x);
-  // delay(100);
-  // Serial.println("******************");
+  
   //draw the new positions
   screen->drawPixel(lstick_x, lstick_y, WHITE);
   screen->drawPixel(rstick_x, rstick_y, WHITE);

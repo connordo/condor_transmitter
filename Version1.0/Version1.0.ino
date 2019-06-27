@@ -43,6 +43,7 @@ void setup() {
 void loop() {
   // 1. Read in the Analog input
   leftStick->readValues();
+  rightStick->readValues();
   // 2. Package and transmit data
 
   // 3. Read incoming transmission
@@ -50,8 +51,8 @@ void loop() {
   // 4. Write to display
   int lx = leftStick->horizontal_value;
   int ly = leftStick->vertical_value;
-  int rx = 320;
-  int ry = 320;
+  int rx = rightStick->horizontal_value;
+  int ry = rightStick->vertical_value;
   // global_animator->DrawDigitalSticks(leftStick->getVerticalValue, leftStick->getHorizontalValue, 0, 0);
-  global_animator->DrawDigitalSticks(ly, lx, ry, ry);
+  global_animator->DrawDigitalSticks(ly, lx, ry, rx);
 }
