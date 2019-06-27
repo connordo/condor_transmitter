@@ -38,5 +38,6 @@ class Animator {
     void homeScreen_init();
     void DrawBattery(int charge);
     void DrawDigitalSticks(int lx, int ly, int rx, int ry);
+    void DrawStickCircles();
 
 };

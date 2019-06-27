@@ -118,8 +118,8 @@ void Animator::openingAnimation() {
     condor9, condor10, condor11, condor12, condor13, condor14, condor15,
     condor16, condor17
   };
-  screen->clearDisplay();
 
+  screen->clearDisplay();
   screen->drawBitmap(16, 59, lowermarquee, 96, 8, WHITE);
 
   for (int i = 0; i < 17; i++) {
@@ -136,6 +136,8 @@ void Animator::openingAnimation() {
     screen->display();
   }
   delay(1000);
+  screen->clearDisplay();
+  screen->display();
 }
 
 void Animator::homeScreen_init() {
@@ -150,24 +152,9 @@ void Animator::homeScreen_init() {
   screen->setTextColor(WHITE);
   screen->println("915 MHz TX/RX");
 
-  //draw circles for digital stick representation
-  screen->drawCircle(LJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS, WHITE);
-  screen->drawCircle(RJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS, WHITE);
-  screen->drawCircle(LJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
-  screen->drawCircle(RJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
-  screen->drawLine(LJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS, LJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS-LITTLE_LINE_LENGTH, WHITE);
-  screen->drawLine(RJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS, RJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS-LITTLE_LINE_LENGTH, WHITE);
-  screen->drawLine(LJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS, LJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
-  screen->drawLine(RJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS, RJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
-  screen->drawLine(LJOY_CENTER_X-JOY_RADIUS, JOY_CENTER_Y, LJOY_CENTER_X-JOY_RADIUS-LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
-  screen->drawLine(RJOY_CENTER_X-JOY_RADIUS, JOY_CENTER_Y, RJOY_CENTER_X-JOY_RADIUS-LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
-  screen->drawLine(LJOY_CENTER_X+JOY_RADIUS, JOY_CENTER_Y, LJOY_CENTER_X+JOY_RADIUS+LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
-  screen->drawLine(RJOY_CENTER_X+JOY_RADIUS, JOY_CENTER_Y, RJOY_CENTER_X+JOY_RADIUS+LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
-
-
-  //stick positions
-  screen->drawPixel(lstick_x, lstick_y, WHITE);
-  screen->drawPixel(rstick_x, rstick_y, WHITE);
+  //draw circles and positions of digital sticks
+  DrawStickCircles();
+  DrawDigitalSticks(lstick_y, lstick_x, rstick_y, rstick_x);
 
   screen->display();
 }
@@ -189,22 +176,48 @@ void Animator::DrawBattery(int charge) {
     screen->fillRect(122, 4, 2, 3, WHITE);
 }
 
-void Animator::DrawDigitalSticks(int lx, int ly, int rx, int ry){
+void Animator::DrawDigitalSticks(int ly, int lx, int ry, int rx){
   //erase the current dots
   screen->drawPixel(lstick_x, lstick_y, BLACK);
   screen->drawPixel(rstick_x, rstick_y, BLACK);
 
   //map the stick positions to display positions
   //TODO fromLOW and fromHIGH are placeholders for now...
-  int fromLOW = 0;
-  int fromHIGH = 100;
-  lstick_x = map(lx, fromLOW, fromHIGH, LJOY_CENTER_X-JOY_RADIUS+1, LJOY_CENTER_X+JOY_RADIUS-1);
-  lstick_y = map(rx, fromLOW, fromHIGH, RJOY_CENTER_X-JOY_RADIUS+1, RJOY_CENTER_X+JOY_RADIUS-1);
-  rstick_x = map(ly, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-1, JOY_CENTER_Y-JOY_RADIUS+1);
-  rstick_y = map(ry, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-1, JOY_CENTER_Y-JOY_RADIUS+1);
+  int fromLOW = -10;
+  int fromHIGH = 10;
 
+  lstick_x = map(lx, fromLOW, fromHIGH, LJOY_CENTER_X-JOY_RADIUS+1, LJOY_CENTER_X+JOY_RADIUS-1);
+  lstick_y = map(ly, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-1, JOY_CENTER_Y-JOY_RADIUS+1);
+  rstick_x = map(rx, fromLOW, fromHIGH, RJOY_CENTER_X-JOY_RADIUS+1, RJOY_CENTER_X+JOY_RADIUS-1);
+  rstick_y = map(ry, fromLOW, fromHIGH, JOY_CENTER_Y+JOY_RADIUS-1, JOY_CENTER_Y-JOY_RADIUS+1);
+  // Serial.begin(9600);
+  // delay(100);
+  // Serial.println(ly);
+  // delay(100);
+  // Serial.println(lx);
+  // delay(100);
+  // Serial.println(lstick_y);
+  // delay(100);
+  // Serial.println(lstick_x);
+  // delay(100);
+  // Serial.println("******************");
   //draw the new positions
   screen->drawPixel(lstick_x, lstick_y, WHITE);
   screen->drawPixel(rstick_x, rstick_y, WHITE);
   screen->display();
+}
+
+void Animator::DrawStickCircles(){
+  screen->drawCircle(LJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS, WHITE);
+  screen->drawCircle(RJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS, WHITE);
+  screen->drawCircle(LJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
+  screen->drawCircle(RJOY_CENTER_X, JOY_CENTER_Y, JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
+  screen->drawLine(LJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS, LJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS-LITTLE_LINE_LENGTH, WHITE);
+  screen->drawLine(RJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS, RJOY_CENTER_X, JOY_CENTER_Y-JOY_RADIUS-LITTLE_LINE_LENGTH, WHITE);
+  screen->drawLine(LJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS, LJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
+  screen->drawLine(RJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS, RJOY_CENTER_X, JOY_CENTER_Y+JOY_RADIUS+LITTLE_LINE_LENGTH, WHITE);
+  screen->drawLine(LJOY_CENTER_X-JOY_RADIUS, JOY_CENTER_Y, LJOY_CENTER_X-JOY_RADIUS-LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
+  screen->drawLine(RJOY_CENTER_X-JOY_RADIUS, JOY_CENTER_Y, RJOY_CENTER_X-JOY_RADIUS-LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
+  screen->drawLine(LJOY_CENTER_X+JOY_RADIUS, JOY_CENTER_Y, LJOY_CENTER_X+JOY_RADIUS+LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
+  screen->drawLine(RJOY_CENTER_X+JOY_RADIUS, JOY_CENTER_Y, RJOY_CENTER_X+JOY_RADIUS+LITTLE_LINE_LENGTH, JOY_CENTER_Y, WHITE);
 }
